@@ -25,15 +25,37 @@
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+    xorg.libX11
+    xorg.libXext
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXi
+    libglvnd
+    icu
+  ];
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.package = pkgs.bluez;
+  hardware.enableAllFirmware = true;
+
+  
   hardware.xpadneo.enable = true;
 
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
+
+  environment.systemPackages = with pkgs; [ 
+    firefox
+  ];
 }
