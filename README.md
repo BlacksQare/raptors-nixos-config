@@ -1,6 +1,6 @@
-# Raptors NixOS configuration
+# RaptorsPL NixOS configuration
 
-A small Nix flake repository containing RaptorsPŁ NixOS configuration and per-device modules.
+A small Nix flake repository containing RaptorsPL NixOS configuration and per-device modules.
 
 This repository is structured to make adding and maintaining NixOS machines easy: general settings live in `general-configuration.nix`, packages and lists in `package-lists.nix`, and machine-specific configuration lives in `specific-configs/` (for example `legion.nix` imports the `nvidia.nix` module).
 
