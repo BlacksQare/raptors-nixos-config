@@ -59,9 +59,6 @@
   # Configure console keymap
   console.keyMap = "pl2";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -74,7 +71,7 @@
   users.users.raptors = {
     isNormalUser = true;
     description = "RaptorsPL";
-    extraGroups = [ "networkmanager" "wheel" "podman"];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker"];
   };
 
   # Allow unfree packages
@@ -93,6 +90,8 @@
       nrsu = "cd /home/raptors/nixos-config && sudo nix flake update && sudo nixos-rebuild switch";
     };
   };
+
+  virtualisation.docker.enable = true;
 
   services.openssh.enable = true;
 

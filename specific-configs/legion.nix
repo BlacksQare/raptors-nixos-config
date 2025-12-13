@@ -38,6 +38,8 @@
     icu
   ];
 
+  services.printing.enable = true;
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -47,7 +49,6 @@
   hardware.bluetooth.package = pkgs.bluez;
   hardware.enableAllFirmware = true;
 
-  
   hardware.xpadneo.enable = true;
 
   virtualisation.podman = {
