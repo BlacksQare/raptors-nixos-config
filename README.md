@@ -26,7 +26,11 @@ To add another device:
 {
 	imports = [ ./nvidia.nix ]; # import shared modules as needed
 
-	# The new device configuration should be built using the existing options in the configuration.nix and hardware-configuration.nix files. Pay attention to existing options defined in general-configuration.nix in order to not duplicate them. If needed, you can override some options defined in general-configuration.nix using <option> = lib.mkForce <value>;
+	# The new device configuration should be built using the existing options 
+	# in the configuration.nix and hardware-configuration.nix files. 
+	# Pay attention to existing options defined in general-configuration.nix in order to
+	# not duplicate them. If needed, you can override some options defined in
+	# general-configuration.nix using <option> = lib.mkForce <value>;
 	environment.systemPackages = with pkgs; [ firefox ];
 }
 ```
@@ -38,7 +42,7 @@ nixosConfigurations.<device-host-name> = nixpkgs.lib.nixosSystem {
 	system = "x86_64-linux";
 	modules = [ 
     ./general-configuration.nix 
-    ./specific-configs/my-host.nix
+    ./specific-configs/<device-host-name>.nix
   ];
 };
 ```
@@ -47,13 +51,13 @@ nixosConfigurations.<device-host-name> = nixpkgs.lib.nixosSystem {
 
 ```bash
 rm -rf /etc/nixos
-ln -s <absolute-path to your cloned repository folder> /etc/nixos
+ln -s <absolute-path-to-your-cloned-repository-folder> /etc/nixos
 ```
 
 5. Rebuild the new host using the new flake entry:
 
 ```bash
-sudo nixos-rebuild switch --flake .#my-host
+sudo nixos-rebuild switch --flake .#<device-host-name>
 ```
 
 6. After that the rebuilds can be done by the alias:
