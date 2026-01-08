@@ -18,5 +18,13 @@
         ./specific-configs/legion.nix
       ];
     };
+    nixosConfigurations.gmk = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./general-configuration.nix
+        ./specific-configs/gmk.nix
+      ];
+    };
   };
 }
