@@ -11,6 +11,12 @@
 
   boot.loader.grub.default = 2;
 
+    # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  networking.hostName = "legion-nix"; # Define your hostname.
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/00285cbb-e83d-43f3-ae60-ebdb6873cb15";
       fsType = "ext4";
@@ -39,8 +45,6 @@
   ];
 
   services.printing.enable = true;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   

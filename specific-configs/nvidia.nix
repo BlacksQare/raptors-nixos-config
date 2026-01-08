@@ -21,6 +21,7 @@
 
   environment.systemPackages = with pkgs; [ 
     cudatoolkit
-    distrobox
   ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 }

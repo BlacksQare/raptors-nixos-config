@@ -3,6 +3,11 @@
 {
   environment.systemPackages = with pkgs; [
     git
+    htop
     btop
+    distrobox
+    usbutils
+    vim
+    pciutils
   ];
 }

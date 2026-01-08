@@ -5,8 +5,9 @@
     ./package-lists.nix
   ];
 
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.systemd-boot.consoleMode = "max";
+  boot.loader.systemd-boot = {
+    enable = false;
+  };
 
   boot.loader.grub = {
     enable = true;
@@ -16,8 +17,6 @@
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "legion-nix"; # Define your hostname.
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -46,10 +45,6 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = false;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "pl";
@@ -71,7 +66,7 @@
   users.users.raptors = {
     isNormalUser = true;
     description = "RaptorsPL";
-    extraGroups = [ "networkmanager" "wheel" "podman" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" ];
   };
 
   # Allow unfree packages
@@ -87,7 +82,7 @@
     enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch";
-      nrsu = "cd /home/raptors/nixos-config && sudo nix flake update && sudo nixos-rebuild switch";
+      nrsu = "cd /home/raptors/nixos-config && sudo nix flake update && sudo nixos-rebuild switch && cd -";
     };
   };
 
