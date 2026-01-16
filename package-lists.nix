@@ -9,5 +9,8 @@
     usbutils
     vim
     pciutils
+    openssl
+
+    stress
   ];
 }
