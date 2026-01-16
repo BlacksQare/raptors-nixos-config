@@ -11,8 +11,12 @@
 
   boot.loader.grub.default = 2;
 
-    # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    sddm.enable = true;
+    autoLogin.enable = true;
+    autoLogin.user = "raptors";
+  };
+  
   services.desktopManager.plasma6.enable = true;
 
   networking.hostName = "legion-nix"; # Define your hostname.
