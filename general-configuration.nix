@@ -3,6 +3,7 @@
 {
   imports = [
     ./package-lists.nix
+    ./branding.nix
   ];
 
   boot.loader.systemd-boot = {
