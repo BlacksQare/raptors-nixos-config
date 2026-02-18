@@ -59,6 +59,8 @@
 
   systemd.network.enable = true;
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   systemd.network.networks."80-can" = {
     matchConfig.Name = "can0";
     networkConfig = { };
