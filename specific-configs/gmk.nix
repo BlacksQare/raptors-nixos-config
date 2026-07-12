@@ -8,6 +8,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "gmk";
+  networking.firewall.enable = false;
   systemd.network.wait-online.enable = false;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
