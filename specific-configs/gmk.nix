@@ -75,6 +75,11 @@
     '';
   };
 
+  # OAK cam udev rules
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
+  '';
+
   # systemd.services.can-bridge = {
   #   path = with pkgs; [ usbutils ];
 
