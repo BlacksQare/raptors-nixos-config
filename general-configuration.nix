@@ -87,6 +87,14 @@
     };
   };
 
+  programs.git = {
+    enable = true;
+    config = {
+      user.name = "Raptors";
+      user.email = "raptors@teamraptors.pl";
+    };
+  };
+
   virtualisation.docker.enable = true;
 
   services.openssh.enable = true;
