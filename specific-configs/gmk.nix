@@ -51,7 +51,9 @@
 
   environment.systemPackages = with pkgs; [
     can-utils
-    pkgs.rocmPackages.rocm-smi
+    rocmPackages.rocm-smi
+    rocmPackages.rocminfo
+    cowsay
   ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
