@@ -48,7 +48,15 @@
     icu
   ];
 
+  programs.ssh.extraConfig="
+    Host gmk
+      Hostname 192.168.1.20
+      User raptors
+      Port 22
+  ";
+
   services.printing.enable = true;
+  services.flatpak.enable = true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   
@@ -66,5 +74,6 @@
   environment.systemPackages = with pkgs; [ 
     xorg.xauth
     firefox
+    vscode.fhs
   ];
 }
