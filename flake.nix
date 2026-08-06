@@ -5,6 +5,12 @@
     # NixOS stable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    rexctl = {
+      url = "github:BlacksQare/rexctl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     # NixOS unstable
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };

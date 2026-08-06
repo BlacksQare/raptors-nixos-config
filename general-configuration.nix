@@ -2,6 +2,8 @@
 
 {
   imports = [
+    inputs.rexctl.nixosModules.default
+
     ./package-lists.nix
     ./branding.nix
   ];
@@ -93,6 +95,36 @@
       user.name = "Raptors";
       user.email = "raptors@teamraptors.pl";
     };
+  };
+
+  programs.rexctl = {
+    enable = true;
+    workspacesPath = "/home/raptors/workspaces"; 
+    defaultManifest = ''
+kind: RexctlWorkspace
+
+spec:
+  containers:
+    - name: raptor_ws
+      type: compose
+      remote: git@github.com:Raptors/raptor_ws.git
+      revision: main
+
+    - name: autonomy_ws
+      type: compose
+      remote: git@github.com:Raptors/autonomy_ws.git
+      revision: main
+
+    - name: manipulator_ws
+      type: compose
+      remote: git@github.com:Raptors/manipulator_ws.git
+      revision: main
+
+    - name: kinematics_ws
+      type: compose
+      remote: git@github.com:Raptors/kinematics_ws.git
+      revision: main
+    '';
   };
 
   virtualisation.docker.enable = true;
