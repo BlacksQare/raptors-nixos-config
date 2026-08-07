@@ -22,6 +22,7 @@
       modules = [
         ./general-configuration.nix
         ./specific-configs/legion.nix
+        ./branding.nix
       ];
     };
     nixosConfigurations.gmk = nixpkgs.lib.nixosSystem {
@@ -30,6 +31,7 @@
       modules = [
         ./general-configuration.nix
         ./specific-configs/gmk.nix
+        ./branding-rexctl.nix
       ];
     };
   };

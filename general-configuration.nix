@@ -3,9 +3,7 @@
 {
   imports = [
     inputs.rexctl.nixosModules.default
-
     ./package-lists.nix
-    ./branding.nix
   ];
 
   boot.loader.systemd-boot = {

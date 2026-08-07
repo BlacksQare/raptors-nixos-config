@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  dependencies = [ pkgs.gawk pkgs.hostname pkgs.coreutils pkgs.docker pkgs.ncurses];
+  dependencies = [ pkgs.gawk pkgs.hostname pkgs.coreutils pkgs.docker pkgs.ncurses ];
 
   preloginScript = pkgs.writeShellScript "prelogin" ''
   export PATH="${lib.makeBinPath dependencies}:$PATH"
@@ -11,8 +11,19 @@ let
   NET_MAX=3
   DOCKER_MAX=5
 
+  # This runs before every prompt display, dynamically fetching the active workspace
   set_orange_prompt() {
-    PS1='\[\033[38;5;202m\][\u@\h:\w]\$ \[\033[0m\]'
+    local ws="none"
+    if command -v rexctl >/dev/null 2>&1; then
+      local ws_out
+      ws_out=$(rexctl get 2>/dev/null)
+      if [[ "$ws_out" != "No "* && -n "$ws_out" ]]; then
+        ws="$ws_out"
+      fi
+    fi
+    # The workspace value ($ws) is colored bright white (\033[97m) 
+    # before returning to orange (\033[38;5;202m)
+    PS1='\[\033[38;5;202m\][\u@\h:\w] [ws:\[\033[97m\]'"$ws"'\[\033[38;5;202m\]]\$ \[\033[0m\]'
   }
 
   if [[ "$PROMPT_COMMAND" != *set_orange_prompt* ]]; then
@@ -39,6 +50,20 @@ let
         :%:... :     .%%:
     ......           ::..
   EOF
+  }
+
+  get_workspace_line() {
+    if command -v rexctl >/dev/null 2>&1; then
+      local ws_out
+      ws_out=$(rexctl get 2>/dev/null)
+      if [[ "$ws_out" != "No "* && -n "$ws_out" ]]; then
+        echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} ''${LOGO_COLOR}''${ws_out}''${TEXT_RESET} active"
+      else
+        echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} none active"
+      fi
+    else
+      echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} not installed"
+    fi
   }
 
   get_ram_line() {
@@ -83,6 +108,8 @@ let
     {
       echo -e "''${TEXT_BOLD}System:''${TEXT_RESET} ''${LOGO_COLOR}$(hostname)''${TEXT_RESET}"
       echo ""
+      get_workspace_line
+      echo ""
       echo -e "''${TEXT_BOLD}Memory:''${TEXT_RESET}"
       get_ram_line
       echo ""
@@ -118,7 +145,12 @@ let
 
     RAM_ROW=-1
     NET_HEADER_ROW=-1
+    WS_ROW=-1
+    
     for idx in $(seq 0 $(( ''${#STATS_LINES[@]} - 1 ))); do
+      if [ "$WS_ROW" -lt 0 ] && [[ "''${STATS_LINES[$idx]}" == *"Workspace:"* ]]; then
+        WS_ROW=$((1 + idx))
+      fi
       if [ "$RAM_ROW" -lt 0 ] && [[ "''${STATS_LINES[$idx]}" == "  RAM"* ]]; then
         RAM_ROW=$((1 + idx))
       fi
@@ -129,6 +161,13 @@ let
 
     NET_DATA_ROW=$((NET_HEADER_ROW + 1))
     PROMPT_ROW=$((1 + MAX_LINES + 1))
+  }
+
+  update_workspace_only() {
+    [ "$WS_ROW" -ge 0 ] || return 0
+    tput cup "$WS_ROW" "$STATS_COL"
+    tput el
+    get_workspace_line | tr -d '\n'
   }
 
   update_ram_only() {
@@ -162,6 +201,7 @@ let
     render_full
 
     while true; do
+      update_workspace_only
       update_ram_only
       update_network_only
 
