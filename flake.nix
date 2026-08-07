@@ -34,5 +34,14 @@
         ./branding-rexctl.nix
       ];
     };
+    nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./general-configuration.nix
+        ./specific-configs/nuc.nix
+        ./branding-rexctl.nix
+      ];
+    };
   };
 }
