@@ -16,9 +16,30 @@
         "type": "github"
       }
     },
+    "rexctl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786106580,
+        "narHash": "sha256-3nL3kcmHO7dD+kGVXfQ7Yy34f2wHiw0syp4Nq1wkSPY=",
+        "owner": "BlacksQare",
+        "repo": "rexctl",
+        "rev": "333444bd073cdaa5f380391d612200c923840afa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BlacksQare",
+        "repo": "rexctl",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "rexctl": "rexctl"
       }
     }
   },
