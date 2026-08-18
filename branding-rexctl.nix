@@ -17,7 +17,7 @@ let
     if command -v rexctl >/dev/null 2>&1; then
       local ws_out
       ws_out=$(rexctl get 2>/dev/null)
-      if [[ "$ws_out" != "No "* && -n "$ws_out" ]]; then
+      if [[ -n "$ws_out" ]]; then
         ws="$ws_out"
       fi
     fi
@@ -56,7 +56,7 @@ let
     if command -v rexctl >/dev/null 2>&1; then
       local ws_out
       ws_out=$(rexctl get 2>/dev/null)
-      if [[ "$ws_out" != "No "* && -n "$ws_out" ]]; then
+      if [[ -n "$ws_out" ]]; then
         echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} ''${LOGO_COLOR}''${ws_out}''${TEXT_RESET} active"
       else
         echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} none active"

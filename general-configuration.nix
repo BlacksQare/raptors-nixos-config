@@ -98,6 +98,7 @@
   programs.rexctl = {
     enable = true;
     workspacesPath = "/home/raptors/workspaces"; 
+    defaultShellUser = "rex";
     defaultManifest = ''
 kind: RexctlWorkspace
 
