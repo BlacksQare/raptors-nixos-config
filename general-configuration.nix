@@ -67,7 +67,7 @@
   users.users.raptors = {
     isNormalUser = true;
     description = "RaptorsPL";
-    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" "dialout" ];
   };
 
   # Allow unfree packages
