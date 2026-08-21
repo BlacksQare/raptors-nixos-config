@@ -55,6 +55,8 @@
       Port 22
   ";
 
+  programs.kdeconnect.enable = true;
+
   services.printing.enable = true;
   services.flatpak.enable = true;
 
