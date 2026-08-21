@@ -20,6 +20,7 @@
   services.desktopManager.plasma6.enable = true;
 
   networking.hostName = "legion-nix"; # Define your hostname.
+  services.usbmuxd.enable = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/00285cbb-e83d-43f3-ae60-ebdb6873cb15";
@@ -80,5 +81,6 @@
     vscode.fhs
     mission-planner
     podman-compose
+    libimobiledevice
   ];
 }
