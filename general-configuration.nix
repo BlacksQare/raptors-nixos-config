@@ -128,7 +128,20 @@ spec:
 
   virtualisation.docker.enable = true;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+
+    settings = {
+      X11Forwarding = true;
+      X11UseLocalhost = true;
+      X11DisplayOffset = 10;
+    };
+  };
+
+  programs.ssh = {
+    forwardX11 = true;
+    setXAuthLocation = true;
+  };
 
   services.envfs.enable = true;
 

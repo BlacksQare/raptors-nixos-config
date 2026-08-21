@@ -10,6 +10,7 @@
     vim
     pciutils
     openssl
+    xorg.xauth
 
     stress
   ];

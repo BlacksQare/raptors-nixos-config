@@ -75,7 +75,6 @@
   };
 
   environment.systemPackages = with pkgs; [ 
-    xorg.xauth
     xorg.xhost
     firefox
     vscode.fhs
