@@ -77,5 +77,6 @@
     xorg.xauth
     firefox
     vscode.fhs
+    mission-planner
   ];
 }
