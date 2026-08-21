@@ -55,6 +55,8 @@
       Port 22
   ";
 
+  programs.kdeconnect.enable = true;
+
   services.printing.enable = true;
   services.flatpak.enable = true;
 
@@ -73,7 +75,10 @@
 
   environment.systemPackages = with pkgs; [ 
     xorg.xauth
+    xorg.xhost
     firefox
     vscode.fhs
+    mission-planner
+    podman-compose
   ];
 }
