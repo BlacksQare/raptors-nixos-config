@@ -78,5 +78,6 @@
     firefox
     vscode.fhs
     mission-planner
+    podman-compose
   ];
 }
