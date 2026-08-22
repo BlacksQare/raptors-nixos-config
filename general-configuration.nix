@@ -106,23 +106,18 @@ spec:
   containers:
     - name: raptor_ws
       type: compose
-      remote: git@github.com:Raptors/raptor_ws.git
-      revision: main
-
-    - name: autonomy_ws
-      type: compose
-      remote: git@github.com:Raptors/autonomy_ws.git
-      revision: main
+      remote: git@github.com:wisniax/raptor_ws
+      revision: master
 
     - name: manipulator_ws
       type: compose
-      remote: git@github.com:Raptors/manipulator_ws.git
-      revision: main
+      remote: git@github.com:AlvaroBajceps/manipulator_ws
+      revision: master
 
-    - name: kinematics_ws
+    - name: rover_kinematics
       type: compose
-      remote: git@github.com:Raptors/kinematics_ws.git
-      revision: main
+      remote: git@github.com:parsley026/rover_kinematics 
+      revision: develop
     '';
   };
 
