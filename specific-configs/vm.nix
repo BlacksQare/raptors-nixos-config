@@ -13,7 +13,9 @@
   systemd.network.wait-online.enable = false;
 
   boot.initrd.kernelModules = [ "can" "can_raw" "vcan" "can_dev"];
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
   boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
@@ -23,15 +25,17 @@
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/0003d2ee-d129-4f3e-8e96-ed58d98655a2";
+    { device = "/dev/disk/by-uuid/d38679a5-baf0-4368-980f-d9834f9bcdcf";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/30BA-D067";
+    { device = "/dev/disk/by-uuid/7888-2784";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0022" "dmask=0022" ];
     };
+
+  swapDevices = [ ];
 
   hardware.graphics.enable = true;
 
