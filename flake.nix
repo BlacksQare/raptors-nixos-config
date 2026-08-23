@@ -43,5 +43,14 @@
         ./branding-rexctl.nix
       ];
     };
+    nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./general-configuration.nix
+        ./specific-configs/vm.nix
+        ./branding-rexctl.nix
+      ];
+    };
   };
 }
