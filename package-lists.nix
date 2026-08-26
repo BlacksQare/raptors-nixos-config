@@ -3,6 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     git
+    gh
     htop
     btop
     distrobox
@@ -10,7 +11,7 @@
     vim
     pciutils
     openssl
-    xorg.xauth
+    xauth
 
     stress
   ];

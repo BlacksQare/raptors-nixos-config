@@ -1,3 +1,5 @@
+# Custom module for enabling nvidia features
+
 { config, lib, pkgs, modulesPath, ... }:
 
 {

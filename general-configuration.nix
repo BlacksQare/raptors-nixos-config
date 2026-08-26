@@ -23,6 +23,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
@@ -42,8 +43,6 @@
     LC_TIME = "pl_PL.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = false;
 
   # Configure keymap in X11
@@ -55,19 +54,12 @@
   # Configure console keymap
   console.keyMap = "pl2";
 
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 
   users.users.raptors = {
     isNormalUser = true;
     description = "RaptorsPL";
-    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" "dialout" "kvm" ];
   };
 
   # Allow unfree packages

@@ -21,8 +21,8 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./general-configuration.nix
-        ./specific-configs/legion.nix
-        ./branding.nix
+        ./device-specific/legion.nix
+        ./additional-features/branding.nix
       ];
     };
     nixosConfigurations.gmk = nixpkgs.lib.nixosSystem {
@@ -30,8 +30,8 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./general-configuration.nix
-        ./specific-configs/gmk.nix
-        ./branding-rexctl.nix
+        ./device-specific/gmk.nix
+        ./additional-features/branding-rexctl.nix
       ];
     };
     nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
@@ -39,8 +39,8 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./general-configuration.nix
-        ./specific-configs/nuc.nix
-        ./branding-rexctl.nix
+        ./device-specific/nuc.nix
+        ./additional-features/branding-rexctl.nix
       ];
     };
     nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
@@ -48,9 +48,14 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./general-configuration.nix
-        ./specific-configs/vm.nix
-        ./branding-rexctl.nix
+        ./device-specific/rex-vm.nix
+        ./additional-features/branding-rexctl.nix
       ];
+    };
+
+    apps."x86_64-linux".rex-vm = {
+      type = "app";
+      program = "${self.nixosConfigurations.rex-vm.config.system.build.vm}/bin/run-rex-vm-vm";
     };
   };
 }

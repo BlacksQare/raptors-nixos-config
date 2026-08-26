@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [ ../additional-features/docker-wait-for-network.nix ];
 
   boot.loader.grub.timeoutStyle = "hidden";
 
@@ -8,7 +9,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nuc";
-  networking.firewall.enable = false;
   systemd.network.wait-online.enable = false;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];

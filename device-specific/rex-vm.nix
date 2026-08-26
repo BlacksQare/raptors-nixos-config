@@ -9,7 +9,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "rex-vm";
-  networking.firewall.enable = false;
   systemd.network.wait-online.enable = false;
 
   boot.initrd.kernelModules = [ "can" "can_raw" "vcan" "can_dev"];
@@ -65,4 +64,22 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
   '';
+
+  # Additional nix-native VM configs
+  virtualisation.vmVariant = {
+    virtualisation.memorySize = 2048; 
+    virtualisation.diskSize = 8192;
+    virtualisation.forwardPorts = [
+      { from = "host"; host.port = 2222; guest.port = 22; }
+    ];
+
+    services.openssh = {
+      settings.PermitRootLogin = "yes";
+    };
+
+    users.mutableUsers = false;
+
+    users.users.root.password = "vm";
+    users.users.raptors.password = "vm";
+  };
 }

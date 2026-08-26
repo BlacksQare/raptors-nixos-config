@@ -2,23 +2,23 @@
 
 A small Nix flake repository containing RaptorsPL NixOS configuration and per-device modules.
 
-This repository is structured to make adding and maintaining NixOS machines easy: general settings live in `general-configuration.nix`, packages and lists in `package-lists.nix`, and machine-specific configuration lives in `specific-configs/` (for example `legion.nix` imports the `nvidia.nix` module).
+This repository is structured to make adding and maintaining NixOS devices easy: general settings live in `general-configuration.nix`, packages and lists in `package-lists.nix`, and device-specific configuration lives in `device-specific/` (for example `legion.nix` imports the `nvidia.nix` module from additional-features).
 
 ## Quick overview 
 
-- Flake entry: `nixosConfigurations.legion-nix` (defined in `flake.nix`).
+- Flake entries: `nixosConfigurations.legion-nix`, `gmk`, `nuc`, `rex-vm` (defined in `flake.nix`).
 - Global configuration: `general-configuration.nix` (contains time, users, bash aliases, system packages, etc.).
-- Device-specific modules: `specific-configs/*.nix` (for host- or hardware-specific configuration).
+- Device-specific modules: `device-specific/*.nix` (for host- or hardware-specific configuration).
 
 ## Adding another device / host configuration, actually working with this repository 
 
-This repository is designed to keep per-device configuration separate and composable. **It is also recommended to leave the default user of the system gid=1000 to the default one that is created in general-configuratino.nix eg. raptors**
+This repository is designed to keep per-device configuration separate and composable. **It is also recommended to leave the default user of the system gid=1000 to the default one that is created in general-configuration.nix eg. raptors**
 
 To add another device:
 
 1. Install the NixOS system with the normal procedure with the default user set to ```raptors``` and then copy this repository to ```nixos-config``` directory located in ```raptors``` home directory.
 
-2. Create a new file `specific-configs/<device-host-name>.nix` and place device-specific settings there. Example pattern:
+2. Create a new file `device-specific/<device-host-name>.nix` and place device-specific settings there. Example pattern:
 
 ```nix
 { config, lib, pkgs, modulesPath, ... }:
@@ -42,7 +42,7 @@ nixosConfigurations.<device-host-name> = nixpkgs.lib.nixosSystem {
 	system = "x86_64-linux";
 	modules = [ 
     ./general-configuration.nix 
-    ./specific-configs/<device-host-name>.nix
+    ./device-specific/<device-host-name>.nix
   ];
 };
 ```
@@ -74,25 +74,49 @@ This pattern allows you to share common modules (like `nvidia.nix`) across hosts
 The file `general-configuration.nix` defines the following bash aliases via `programs.bash.shellAliases`:
 
 - `nrs`  — runs `sudo nixos-rebuild switch` (quick rebuild of the current configuration)
-- `nrsu` — changes to `/home/raptors/nixos-config`, runs `sudo nix flake update`, then `sudo nixos-rebuild switch` (update inputs + rebuild)
+- `nrsu` — changes to `/home/raptors/nixos-config`, runs `sudo nix flake update`, then `sudo nixos-rebuild switch`, and returns to the previous directory (`cd -`)
 
 If you want these aliases on a non-NixOS host or for a single user without reconfiguring the system, append them to your `~/.bashrc` or `~/.bash_aliases`:
 
 ```bash
 alias nrs='sudo nixos-rebuild switch'
-alias nrsu='cd /home/raptors/nixos-config && sudo nix flake update && sudo nixos-rebuild switch'
+alias nrsu='cd /home/raptors/nixos-config && sudo nix flake update && sudo nixos-rebuild switch && cd -'
 ```
 
 ## Updating the system & rebuilding 
 
-Recommended way is to use the alias ```nrsu``` defined as  in the system or you can run these commands directly:
+The recommended way is to use the `nrsu` alias, or you can run these commands directly:
 
 ```bash
 cd ~/nixos-config
 sudo nix flake update
-sudo nixos-rebuild
+sudo nixos-rebuild switch
 ```
 
-The `nrsu` alias performs those two steps in one command (the path is set to `/home/raptors/nixos-config` in the alias). Use `nrs` for a quick rebuild when you don't need to update flakes.
+The `nrsu` alias performs those steps in one command (the path is set to `/home/raptors/nixos-config` in the alias). Use `nrs` for a quick rebuild when you don't need to update flakes.
 
+## Running the Virtual Machine (`rex-vm`)
+**For this part you need to have access to nix command on your system (nix as a package see [installation guide](https://nixos.org/download/#nix-install-linux) for non-NixOS system) and access to /dev/kvm (kvm group)**
 
+The repository includes a VM target (`rex-vm`) for testing without physical hardware. You can manage the VM lifecycle using the [`rex-vm.sh`](./rex-vm.sh) script:
+
+```bash
+./rex-vm.sh start     # Start the VM in the background (logs to rex-vm.log, PID in .rex-vm.pid)
+./rex-vm.sh stop      # Stop the running VM
+./rex-vm.sh rebuild   # Stop and restart/rebuild the VM
+./rex-vm.sh remove    # Stop the VM and delete persistent state (*.qcow2 disk image)
+```
+
+### Accessing the VM
+
+SSH port forwarding is mapped from guest port `22` to host port `2222`:
+
+```bash
+ssh -p 2222 raptors@localhost
+# or as root:
+ssh -p 2222 root@localhost
+```
+
+Default credentials:
+- User: `raptors` / Password: `vm`
+- User: `root` / Password: `vm`

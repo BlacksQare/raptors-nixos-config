@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   dependencies = [ pkgs.gawk pkgs.hostname pkgs.coreutils pkgs.docker pkgs.ncurses ];
@@ -8,6 +8,7 @@ let
   (return 0 2>/dev/null) && _SOURCED=1 || _SOURCED=0
 
   STATS_COL=28
+  STATS_COL_0=$((STATS_COL - 1))
   NET_MAX=3
   DOCKER_MAX=5
 
@@ -57,7 +58,7 @@ let
       local ws_out
       ws_out=$(rexctl get 2>/dev/null)
       if [[ -n "$ws_out" ]]; then
-        echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} ''${LOGO_COLOR}''${ws_out}''${TEXT_RESET} active"
+        echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} ''${LOGO_COLOR}''${ws_out}''${TEXT_RESET}"
       else
         echo -e "''${TEXT_BOLD}Workspace:''${TEXT_RESET} none active"
       fi
@@ -165,14 +166,14 @@ let
 
   update_workspace_only() {
     [ "$WS_ROW" -ge 0 ] || return 0
-    tput cup "$WS_ROW" "$STATS_COL"
+    tput cup "$WS_ROW" "$STATS_COL_0"
     tput el
     get_workspace_line | tr -d '\n'
   }
 
   update_ram_only() {
     [ "$RAM_ROW" -ge 0 ] || return 0
-    tput cup "$RAM_ROW" "$STATS_COL"
+    tput cup "$RAM_ROW" "$STATS_COL_0"
     tput el
     get_ram_line | tr -d '\n'
   }
@@ -181,7 +182,7 @@ let
     [ "$NET_DATA_ROW" -ge 0 ] || return 0
     mapfile -t _net < <(get_net_lines)
     for i in $(seq 0 $((NET_MAX - 1))); do
-      tput cup $((NET_DATA_ROW + i)) "$STATS_COL"
+      tput cup $((NET_DATA_ROW + i)) "$STATS_COL_0"
       tput el
       if [ "$i" -lt "''${#_net[@]}" ]; then
         echo -ne "''${_net[$i]}"
@@ -205,7 +206,7 @@ let
       update_ram_only
       update_network_only
 
-      tput cup "$PROMPT_ROW" "$STATS_COL"
+      tput cup "$PROMPT_ROW" "$STATS_COL_0"
       tput el
       echo -ne "''${TEXT_BOLD}Press Enter to continue...''${TEXT_RESET}"
 
@@ -257,4 +258,20 @@ in
       source ${preloginScript}
     '';
   };
+
+  environment.etc."os-release".text = lib.mkForce ''
+    NAME=NixOS
+    ID=nixos
+    VERSION="${config.system.nixos.version}"
+    VERSION_CODENAME="${config.system.nixos.codeName}"
+    VERSION_ID="${config.system.nixos.release}"
+    BUILD_ID="${config.system.nixos.version}"
+    PRETTY_NAME="RexOS" 
+    ANSI_COLOR="38;5;202"
+    LOGO="nix-snowflake"
+    HOME_URL="https://nixos.org/"
+    DOCUMENTATION_URL="https://nixos.org/learn.html"
+    SUPPORT_URL="https://nixos.org/community.html"
+    BUG_REPORT_URL="https://github.com/NixOS/nixpkgs/issues"
+  '';
 }
