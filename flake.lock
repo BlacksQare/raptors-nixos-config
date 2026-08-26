@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787730513,
-        "narHash": "sha256-//pNzpKLSB/D/INFxqxTxzAJVXc7paTQ9yynheSlv7U=",
+        "lastModified": 1787768141,
+        "narHash": "sha256-AQ7AiolLjPcA9gauACr/CHLsnOETo5ZHdQZFrO5A+JI=",
         "owner": "BlacksQare",
         "repo": "rexctl",
-        "rev": "bf05ffcefbae8565a7751f37cf295235e8a30638",
+        "rev": "a0142c1e37b45e9c5be777585e63b0be4cd2b71d",
         "type": "github"
       },
       "original": {
