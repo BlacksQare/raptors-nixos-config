@@ -67,11 +67,14 @@
 
   # Additional nix-native VM configs
   virtualisation.vmVariant = {
-    virtualisation.memorySize = 2048; 
-    virtualisation.diskSize = 8192;
-    virtualisation.forwardPorts = [
-      { from = "host"; host.port = 2222; guest.port = 22; }
-    ];
+    virtualisation= {
+      cores = 4;  
+      memorySize = 6144; 
+      diskSize = 8192;
+      forwardPorts = [
+        { from = "host"; host.port = 2222; guest.port = 22; }
+      ];
+    };
 
     services.openssh = {
       settings.PermitRootLogin = "yes";
