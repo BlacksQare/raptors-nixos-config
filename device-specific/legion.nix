@@ -20,6 +20,14 @@
   services.desktopManager.plasma6.enable = true;
 
   networking.hostName = "legion-nix"; # Define your hostname.
+
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+  };
+
   services.usbmuxd.enable = true;
 
   fileSystems."/" =
