@@ -32,6 +32,7 @@
         ./general-configuration.nix
         ./device-specific/gmk.nix
         ./additional-features/branding-rexctl.nix
+        ./additional-features/trb-ntp.nix
       ];
     };
     nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
@@ -41,6 +42,7 @@
         ./general-configuration.nix
         ./device-specific/nuc.nix
         ./additional-features/branding-rexctl.nix
+        ./additional-features/trb-ntp.nix
       ];
     };
     nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
