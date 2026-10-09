@@ -62,7 +62,7 @@
       RequiredForOnline=no
 
       [CAN]
-      BitRate=1000000
+      BitRate=500000
       RestartSec=100ms
     '';
   };
