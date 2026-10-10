@@ -4,7 +4,7 @@
   imports = [ ../additional-features/nvidia.nix ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "can" "can_raw" "vcan" "can_dev" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "ntfs" "ntfs3" ];
@@ -27,6 +27,22 @@
       networkmanager-openvpn
     ];
   };
+
+  systemd.network.enable = true;
+  systemd.network.wait-online.enable = false;
+  systemd.network.networks."80-can" = {
+    matchConfig.Name = "can0";
+    networkConfig = { };
+    extraConfig = ''
+      [Link]
+      RequiredForOnline=no
+
+      [CAN]
+      BitRate=500000
+      RestartSec=100ms
+   '';
+  };
+
 
   services.usbmuxd.enable = true;
 
@@ -92,5 +108,7 @@
     mission-planner
     podman-compose
     libimobiledevice
+    can-utils
+    libnotify
   ];
 }
