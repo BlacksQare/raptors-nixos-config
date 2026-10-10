@@ -82,6 +82,12 @@
     SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
   '';
 
+  programs.bash = {
+    shellAliases = {
+      rex-debug = "( cd ~/rex-debug ; ./run.sh )";
+    };
+  };
+
   # systemd.services.can-bridge = {
   #   path = with pkgs; [ usbutils ];
 
