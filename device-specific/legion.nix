@@ -82,6 +82,9 @@
     enable = true;
   };
 
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   environment.systemPackages = with pkgs; [ 
     xorg.xhost
     firefox
