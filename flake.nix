@@ -33,6 +33,8 @@
         ./device-specific/gmk.nix
         ./additional-features/branding-rexctl.nix
         ./additional-features/trb-ntp.nix
+        ./additional-features/mediamtx-hikvision.nix
+        ./additional-features/nginx-wiki.nix
       ];
     };
     nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
@@ -43,6 +45,8 @@
         ./device-specific/nuc.nix
         ./additional-features/branding-rexctl.nix
         ./additional-features/trb-ntp.nix
+        ./additional-features/mediamtx-hikvision.nix
+        ./additional-features/nginx-wiki.nix
       ];
     };
     nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
@@ -52,6 +56,8 @@
         ./general-configuration.nix
         ./device-specific/rex-vm.nix
         ./additional-features/branding-rexctl.nix
+#        ./additional-features/mediamtx-hikvision.nix
+#        ./additional-features/nginx-wiki.nix
       ];
     };
 

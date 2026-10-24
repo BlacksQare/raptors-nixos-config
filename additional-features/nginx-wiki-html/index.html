@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wykaz Urządzeń Łazika - REX</title>
+    <style>
+        /* Główne ustawienia strony */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px 40px;
+        }
+
+        /* Nagłówek */
+        h1 {
+            color: #ff5500;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Pomarańczowa linia oddzielająca */
+        .divider {
+            border-bottom: 2px solid #ff5500;
+            margin-bottom: 25px;
+        }
+
+        /* Style tabeli */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #2a2a2a; /* Ciemnoszare linie między wierszami */
+        }
+
+        th {
+            color: #ff5500;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        td {
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        /* Style dla linków funkcyjnych */
+        .action-link {
+            color: #FEA728; /* żółty kolor linku */
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        /* Style dla nieklikalnych IP i domen */
+        .no-link {
+            color: white; /* biały kolor linku */
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .action-link:hover {
+            color: #FFC107; /* Jaśniejszy żółty po najechaniu */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Wykaz Urządzeń Łazika — REX</h1>
+    <div class="divider"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Urządzenie</th>
+                <th>Domena DNS</th>
+                <th>Adres IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Router TRB500</td>
+                <td><a href="http://trb.rex.teamraptors.pl" class="action-link" target="_blank">trb.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.1" class="action-link" target="_blank">192.168.1.1</a></td>
+            </tr>
+            <tr>
+                <td>Switch TSW212</td>
+                <td><a href="http://tsw.rex.teamraptors.pl" class="action-link" target="_blank">tsw.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.2" class="action-link" target="_blank">192.168.1.2</a></td>
+            </tr>
+            <tr>
+                <td>GMK</td>
+                <td><a href="http://gmk.rex.teamraptors.pl" class="action-link" target="_blank">gmk.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.20" class="action-link" target="_blank">192.168.1.20</a></td>
+            </tr>
+            <tr>
+                <td>NUC</td>
+                <td><a href="http://nuc.rex.teamraptors.pl" class="action-link" target="_blank">nuc.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.30" class="action-link" target="_blank">192.168.1.30</a></td>
+            </tr>
+            <tr>
+                <td>Router D-Link</td>
+                <td><a href="http://dlink.rex.teamraptors.pl" class="action-link" target="_blank">dlink.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.0.1" class="action-link" target="_blank">192.168.0.1</a></td>
+            </tr>
+            <tr>
+                <td>Rocket Rover</td>
+                <td><a href="http://rocket.rex.teamraptors.pl" class="action-link" target="_blank">rocket.rex.teamraptors.pl</a></td>
+                <td><a href="http://172.16.0.3" class="action-link" target="_blank">172.16.0.3</a></td>
+            </tr>
+            <tr>
+                <td>Rocket Base</td>
+                <td><a href="http://rocket-base.rex.teamraptors.pl" class="action-link" target="_blank">rocket-base.rex.teamraptors.pl</a></td>
+                <td><a href="http://172.16.0.4" class="action-link" target="_blank">172.16.0.4</a></td>
+            </tr>
+            <tr>
+                <td>WireGuard Hub</td>
+                <td><span class="no-link">wg-hub.rex.teamraptors.pl</span></td>
+                <td><span class="no-link">10.254.0.3</span></td>
+            </tr>
+            <tr>
+                <td>Jetson Orin</td>
+                <td><span class="no-link">jetson.rex.teamraptors.pl</span></td>
+                <td><span class="no-link">192.168.1.21</span></td>
+            </tr>
+            <tr>
+                <td>Kamera Oak-D</td>
+                <td><a href="http://oak.rex.teamraptors.pl" class="action-link" target="_blank">oak.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.24" class="action-link" target="_blank">192.168.1.24</a></td>
+            </tr>
+            <tr>
+                <td>Lidar Ouster</td>
+                <td><a href="http://ouster.rex.teamraptors.pl" class="action-link" target="_blank">ouster.rex.teamraptors.pl</a></td>
+                <td><a href="http://192.168.1.22" class="action-link" target="_blank">192.168.1.22</a></td>
+            </tr>    
+
+
+            </tbody>
+    </table>
+
+</body>
+</html>
+
