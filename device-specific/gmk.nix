@@ -12,7 +12,6 @@
   systemd.network.wait-online.enable = false;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "can" "can_raw" "vcan" "can_dev"];
   boot.kernelModules = [ "kvm-amd" "amdgpu" ];
   boot.extraModulePackages = [ ];
 
@@ -50,7 +49,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    can-utils
     rocmPackages.rocm-smi
     rocmPackages.rocminfo
     cowsay
@@ -64,19 +62,6 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  systemd.network.networks."80-can" = {
-    matchConfig.Name = "can0";
-    networkConfig = { };
-    extraConfig = ''
-      [Link]
-      RequiredForOnline=no
-
-      [CAN]
-      BitRate=500000
-      RestartSec=100ms
-    '';
-  };
-
   # OAK cam udev rules
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"
@@ -87,33 +72,5 @@
       rex-debug = "( cd ~/rex-debug ; ./run.sh )";
     };
   };
-
-  # systemd.services.can-bridge = {
-  #   path = with pkgs; [ usbutils ];
-
-  #   description = "CAN Bridge Setup for ROS Core";
-
-  #   # Unit section equivalents
-  #   after = [ "docker.service" ];
-  #   requires = [ "docker.service" ];
-
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = "${pkgs.bash}/bin/bash /home/raptors/raptor_ws/.devcontainer/services/can-bridge-setup.sh";
-  #     ExecStartPost = "${pkgs.coreutils}/bin/rm -f /home/raptors/raptor_ws/.can_bridge_rex_waiting";
-  #   };
-  # };
-
-  # systemd.paths.can-bridge = {
-  #   description = "Watch for CAN bridge trigger file";
-
-  #   wantedBy = [ "multi-user.target" ];
-
-  #   pathConfig = {
-  #     PathExists = "/home/raptors/raptor_ws/.can_bridge_rex_waiting";
-  #     MakeDirectory = false;
-  #     Unit = "can-bridge.service";
-  #   };
-  # };
 
 }

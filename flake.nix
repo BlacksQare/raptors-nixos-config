@@ -35,6 +35,7 @@
         ./additional-features/trb-ntp.nix
         ./additional-features/mediamtx-hikvision.nix
         ./additional-features/nginx-wiki.nix
+        ./additional-features/rover-can.nix
       ];
     };
     nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
@@ -47,6 +48,7 @@
         ./additional-features/trb-ntp.nix
         ./additional-features/mediamtx-hikvision.nix
         ./additional-features/nginx-wiki.nix
+        ./additional-features/rover-can.nix
       ];
     };
     nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
