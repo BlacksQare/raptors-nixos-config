@@ -1,6 +1,12 @@
 { pkgs, ... }:
 
 {
+  # Wait for docker, which in turn waits for network - otherwise weird things happen
+  systemd.services.mediamtx = {
+    after = [ "docker.service" ];
+    requires = [ "docker.service" ];
+  };
+
   services.mediamtx = {
     enable = true;
 
