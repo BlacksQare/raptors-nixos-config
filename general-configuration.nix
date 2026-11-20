@@ -59,7 +59,7 @@
   users.users.raptors = {
     isNormalUser = true;
     description = "RaptorsPL";
-    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" "dialout" "kvm" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker" "video" "render" "dialout" "libvirtd" "kvm" ];
   };
 
   # Allow unfree packages
@@ -114,6 +114,7 @@ spec:
   };
 
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   services.openssh = {
     enable = true;

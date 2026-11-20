@@ -54,6 +54,10 @@
     cowsay
   ];
 
+  environment.sessionVariables = {
+    QEMU_OPTS = "-nographic";
+  };
+
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.amdgpu.opencl.enable = true;

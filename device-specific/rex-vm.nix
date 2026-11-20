@@ -45,6 +45,10 @@
     cowsay
   ];
 
+  environment.sessionVariables = {
+    QEMU_OPTS = "-nographic";
+  };
+
   systemd.network.enable = true;
 
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -68,9 +72,9 @@
   # Additional nix-native VM configs
   virtualisation.vmVariant = {
     virtualisation= {
-      cores = 4;  
+      cores = 6;  
       memorySize = 6144; 
-      diskSize = 8192;
+      diskSize = 12288;
       forwardPorts = [
         { from = "host"; host.port = 2222; guest.port = 22; }
         { from = "host"; host.port = 8883; guest.port = 8883; }
