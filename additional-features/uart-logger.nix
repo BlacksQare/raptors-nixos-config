@@ -132,6 +132,7 @@
         timerConfig = {
           OnBootSec = cfg.flushInterval;
           OnUnitActiveSec = cfg.flushInterval;
+          AccuracySec = "100ms";
           Unit = "uart-log-sync.service";
         };
       };
