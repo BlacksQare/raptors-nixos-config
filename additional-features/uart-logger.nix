@@ -20,6 +20,13 @@
       default = 20;
       description = "For how many boots keep logs (current included)";
     };
+
+    speed = lib.mkOption {
+      type = lib.types.int;
+      default = 115200;
+      description = "UART transmision speed";
+    };
+
   };
 
   config =
@@ -81,7 +88,10 @@
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "uart-logger-start" ''
             set -euo pipefail
-            ${pkgs.socat}/bin/socat -u ${lib.escapeShellArg cfg.device},raw,echo=0,hupcl=0 - \
+            exec 3<${lib.escapeShellArg cfg.device}
+            ${pkgs.coreutils}/bin/stty -F ${lib.escapeShellArg cfg.device} ${toString cfg.speed} raw -echo -hupcl
+            echo "UART ${cfg.device}: $(${pkgs.coreutils}/bin/stty -F ${lib.escapeShellArg cfg.device} speed) baud"
+            ${pkgs.coreutils}/bin/cat <&3 \
               | ${pkgs.gawk}/bin/awk '{gsub(/\r/, ""); print strftime("[%Y-%m-%d %H:%M:%S]"), $0; fflush()}' \
               | ${pkgs.socat}/bin/socat -u - open:${logFile},creat,append,o-dsync
           '';

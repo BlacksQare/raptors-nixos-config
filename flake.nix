@@ -36,7 +36,7 @@
         ./additional-features/mediamtx-hikvision.nix
         ./additional-features/nginx-wiki.nix
         ./additional-features/rover-can.nix
-	./additional-features/uart-logger.nix
+        ./additional-features/uart-logger.nix
       ];
     };
     nixosConfigurations.nuc = nixpkgs.lib.nixosSystem {
@@ -50,7 +50,7 @@
         ./additional-features/mediamtx-hikvision.nix
         ./additional-features/nginx-wiki.nix
         ./additional-features/rover-can.nix
-	./additional-features/uart-logger.nix
+        ./additional-features/uart-logger.nix
       ];
     };
     nixosConfigurations.rex-vm = nixpkgs.lib.nixosSystem {
@@ -62,7 +62,7 @@
         ./additional-features/branding-rexctl.nix
 #        ./additional-features/mediamtx-hikvision.nix
 #        ./additional-features/nginx-wiki.nix
-	./additional-features/uart-logger.nix
+#         ./additional-features/uart-logger.nix
       ];
     };
 
