@@ -62,7 +62,19 @@
         ./additional-features/branding-rexctl.nix
 #        ./additional-features/mediamtx-hikvision.nix
 #        ./additional-features/nginx-wiki.nix
-	./additional-features/uart-logger.nix
+#	./additional-features/uart-logger.nix
+      ];
+    };
+    nixosConfigurations.rex-vm-qemu = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./general-configuration.nix
+        ./device-specific/rex-vm-qemu.nix
+        ./additional-features/branding-rexctl.nix
+#        ./additional-features/mediamtx-hikvision.nix
+#        ./additional-features/nginx-wiki.nix
+#       ./additional-features/uart-logger.nix
       ];
     };
 

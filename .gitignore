@@ -1,3 +1,5 @@
 *.qcow2
 *.log
 *.pid
+result/
+result
